@@ -1,0 +1,21 @@
+{% extends 'base.html' %} {% block content %}
+
+<main class="container py-5">
+    <section class="card card-body">
+
+        <h1 class="display-1 text-center">Aplicación Administración 324 </h1>
+        <h2 class="text-center"> {{grupo}}</h2>
+
+        <div class="text-center">
+            {% if not user.is_authenticated %}<a class="btn btn-secondary" href="/signin"> Acceso</a> {%endif%}{% if user.is_authenticated %}
+            <a class="btn btn-dark" href="/logout"> Salir</a> {%endif%}
+
+        </div>
+    </section>
+
+
+
+</main>
+
+
+{%endblock%}

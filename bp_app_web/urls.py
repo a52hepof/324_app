@@ -14,8 +14,25 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
+from django.conf.urls.static import static
 from django.urls import path
+from AccessControl import views as accessAplicationViews
+from django.conf import settings
+'''
+if 'Actividades' in settings.INSTALLED_APPS:
+    from Actividades import views as actividadesViews
+'''
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('', accessAplicationViews.home, name='home'),
+    path('signup', accessAplicationViews.signupPage, name='signup'),
+    path('logout', accessAplicationViews.signout, name='logout'),
+    path('signin', accessAplicationViews.signin, name='signin'),   
 ]
+
+if settings.DEBUG:
+    urlpatterns  += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    urlpatterns  += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+    
