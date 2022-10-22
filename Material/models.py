@@ -9,7 +9,7 @@ from cloudinary.models import CloudinaryField
 from imagekit.models import ProcessedImageField
 from imagekit.processors import ResizeToFill
 from sqlalchemy import null, true
-#from Asociados.models import Seccion
+from Asociado.models import Seccion
 # Create your models here.
 def uploadFileName(instance,filename):
     extension=filename.split('.')[1]
@@ -60,35 +60,35 @@ class Material(models.Model):
        (DESPERFECTOS_GRAVES,'Desperfectos graves'), #('Recambios que requieren atención inmediata')),
     )
     
-    TIENDAS = "Tiendas"#1
-    RECAMBIOS_TIENDAS = "Recambios Tiendas"#2
-    CAMPISMO = "Campismo"#3
-    HERRAMIENTAS = "Herramientas"#4
-    PINTURAS = "Pinturas"#5
-    ELECTRICIDAD="Electricidad"#6
-    FONTANERIA="Fontanería"#7
-    MESAS_BANCOS="Mesas y Bancos"#8
-    INFRAESTRUCTURA_ACAMPADAS="Infraestructura Acampadas"#9
-    OTROS_CAMPISMO="Otros Campismo"#39
+    TIENDAS = 1#"Tiendas"#1
+    RECAMBIOS_TIENDAS = 2#"Recambios Tiendas"#2
+    CAMPISMO = 3#"Campismo"#3
+    HERRAMIENTAS = 4#"Herramientas"#4
+    PINTURAS = 5#"Pinturas"#5
+    ELECTRICIDAD = 6#"Electricidad"#6
+    FONTANERIA = 7#"Fontanería"#7
+    MESAS_BANCOS = 8#"Mesas y Bancos"#8
+    INFRAESTRUCTURA_ACAMPADAS = 9#"Infraestructura Acampadas"#9
+    OTROS_CAMPISMO = 39#"Otros Campismo"#39
     
-    COCINA="Cocina"#40
-    HORNILLOS_ROSCOS="Hornillos y Roscos"#41
-    BOMBONAS_CARTUCHOS="Bombonas y Cartuchos"#42
-    OTROS_COCINA="Otros Cocina"#49    
+    COCINA = 40#"Cocina"#40
+    HORNILLOS_ROSCOS = 41#"Hornillos y Roscos"#41
+    BOMBONAS_CARTUCHOS = 42#"Bombonas y Cartuchos"#42
+    OTROS_COCINA= 49 #"Otros Cocina"#49    
 
-    DIDÁCTICO="Didáctico"#50
-    OTROS_DIDACTICO="Otros Didáctico"#51
+    DIDÁCTICO = 50#"Didáctico"#50
+    OTROS_DIDACTICO = 51#"Otros Didáctico"#51
     
-    RECAMBIOS_CAMPISMO="Recambios campismo"#90
-    RECAMBIOS_ELECTRICIDAD="Recambios electricidad"#91
-    RECAMBIOS_FONTANERIA="Recambios fontanería"#92
-    RECAMBIOS_COCINA="Recambios cocina"#94
+    RECAMBIOS_CAMPISMO= 90 #"Recambios campismo"#90
+    RECAMBIOS_ELECTRICIDAD = 91#"Recambios electricidad"#91
+    RECAMBIOS_FONTANERIA = 92#"Recambios fontanería"#92
+    RECAMBIOS_COCINA=94#"Recambios cocina"#94
     
 
     
     TIPO_MATERIAL = (
-        ("TIENDAS",'Tiendas'),
-        ("Recambios tiendas",'Recambios tiendas'),
+        (TIENDAS,'Tiendas'),
+        (RECAMBIOS_TIENDAS,'Recambios tiendas'),
         (CAMPISMO,'Campismo'),
         (HERRAMIENTAS,'Herramientas'), 
         (PINTURAS,'Pinturas'), 
@@ -112,18 +112,18 @@ class Material(models.Model):
     )
     
     material = models.CharField(max_length=200, null=True)
-    #seccion =models.ManyToManyField(Seccion,through="AsignacionMaterial")
+    seccion =models.ManyToManyField(Seccion,through="AsignacionMaterial")
     
     materialDescription = models.TextField(max_length=3000,null=True)
     created = models.DateTimeField(auto_now_add=False, default=timezone.now)
-    #tipoMaterial =models.CharField(choices=TIPO_MATERIAL,max_length=50,null=True, blank=True)
+    tipoMaterial =models.PositiveSmallIntegerField(choices=TIPO_MATERIAL,null=True, blank=True)
     estado=models.PositiveSmallIntegerField(choices=ESTADO_MATERIAL,null=True, default='Nuevo')
     fecha_compra=models.DateField(null=True, blank=True)
     factura = models.FileField(upload_to=uploadFileName,null=True, blank=True)
     alarma = models.BooleanField(default=False)
     #user = models.ForeignKey(User, null=True, blank=True, on_delete=models.CASCADE)
-    #User = models.CharField(choices=userChoicesTuple,max_length=50,null=True, blank=True,)
-    User = models.CharField(max_length=60, null=True, blank=True)
+    User = models.CharField(choices=userChoicesTuple,max_length=50,null=True, blank=True,)
+    #User = models.CharField(max_length=60, null=True, blank=True)
     
     fotografia = ProcessedImageField(upload_to=uploadFileName,
                                       #processors=[ResizeToFill(600, 400)],
@@ -148,10 +148,10 @@ class PhotoMaterial(models.Model):
 
 class RevisionMaterial(models.Model):
     
-    PASA_REVISION = "pasa revision"
-    DESPERFECTOS_MENORES = "Desperfectos menores"
-    NECESITA_LIMPIEZA = "Necesita limpieza"
-    NECESITA_REPARACION = "Necesita reparacion"
+    PASA_REVISION = 1#"pasa revision"
+    DESPERFECTOS_MENORES = 2#"Desperfectos menores"
+    NECESITA_LIMPIEZA = 3#"Necesita limpieza"
+    NECESITA_REPARACION = 4#"Necesita reparacion"
     
     RESULTADO_REVISION = (
        (PASA_REVISION,'Revisión conforme'),#('Material en perfecto estado de nuevo')
@@ -174,7 +174,7 @@ class RevisionMaterial(models.Model):
     numPiquetasgEnerals = models.PositiveSmallIntegerField(null=True, blank=True)
     seGuardaSucia = models.BooleanField(default=False)
     descripcionRevision = models.TextField(null=True, blank=True)
-    #resultadoRevision = models.CharField(choices=RESULTADO_REVISION,max_length=50,null=True, blank=True)
+    resultadoRevision = models.PositiveSmallIntegerField(choices=RESULTADO_REVISION,null=True, blank=True)
     
     desperfectosReparadosLimpios = models.BooleanField(default=False)
     fechaCierre = models.DateField(null=True, blank=True)    
@@ -195,12 +195,11 @@ class PhotoRevision(models.Model):
         #return '%s - %s' %(self.titulo, self.description)
         return self.photoName
 
-'''
+
 class AsignacionMaterial(models.Model):
     material = models.ForeignKey(Material, on_delete=models.CASCADE)
-    #seccionName = models.ForeignKey(Seccion, on_delete=models.CASCADE)
+    seccionName = models.ForeignKey(Seccion, on_delete=models.CASCADE)
     fechaAsignacion = models.DateField(max_length=100,null=True, blank=True)
     rondaSolar = models.IntegerField()
     def __str__(self):
         return self.seccionName.seccionName + '----'+ self.material.material+'---' +str(self.rondaSolar)
-'''
