@@ -1,5 +1,5 @@
 from django.db import models
-'''
+
 # Create your models here.
 from django.contrib.auth.models import User
 from django.conf import settings
@@ -31,4 +31,3 @@ def create_or_update_user_profile(sender, instance, created, **kwargs):
     if created:
         Profile.objects.create(user=instance)
     instance.profile.save()
-'''
