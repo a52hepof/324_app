@@ -52,6 +52,7 @@ INSTALLED_APPS = [
     'cloudinary',
     'AccessControl',
     'Material',
+    'Asociado',
 
 ]
 
