@@ -117,9 +117,9 @@ DATABASES = {
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'database324app',
-        'USER': 'postgres324',
-        'PASSWORD': 'U74&a93iu',
+        'NAME': '',
+        'USER': '',
+        'PASSWORD': '',
         'HOST': 'database-324-app.caqpfa3nnout.us-east-1.rds.amazonaws.com',
         'PORT': '5432',
     }
