@@ -102,13 +102,42 @@ DATABASES = {
 }
 '''
 
-if DEBUG:
-     DATABASES = {
+'''
+    DATABASES = {
         'default': {
-            'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': BASE_DIR / 'db.sqlite3'
+            'ENGINE': 'mysql.connector.django',
+            'NAME': 'a52hepof_bp324_mariadb',
+            'USER': 'a52hepof_bp324_usuario',
+            'PASSWORD': 'U74&a93iu',
+            'HOST': 'tommy2.heliohost.org',
+            'PORT': '',
         }
     }
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'database324app',
+        'USER': 'postgres324',
+        'PASSWORD': 'U74&a93iu',
+        'HOST': 'database-324-app.caqpfa3nnout.us-east-1.rds.amazonaws.com',
+        'PORT': '5432',
+    }
+}
+
+'''
+    
+
+
+if DEBUG:
+    DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+    }
+}
+
+     
 else:
     DATABASES = {
         'default': dj_database_url.config(
