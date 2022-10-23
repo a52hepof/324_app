@@ -18,19 +18,29 @@ from django.conf.urls.static import static
 from django.urls import path
 from AccessControl import views as accessAplicationViews
 from django.conf import settings
-'''
+
 if 'Actividades' in settings.INSTALLED_APPS:
     from Actividades import views as actividadesViews
-'''
+
 
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    path('admin/', admin.site.urls, name='admin'),
     path('', accessAplicationViews.home, name='home'),
     path('signup', accessAplicationViews.signupPage, name='signup'),
     path('logout', accessAplicationViews.signout, name='logout'),
     path('signin', accessAplicationViews.signin, name='signin'),   
 ]
+
+  
+if 'Actividades' in settings.INSTALLED_APPS:
+    urlpatterns  +=path('Actividades/crear', actividadesViews.crearActividad, name='crearActividades'),
+    urlpatterns  +=path('Actividades/creada/<str:idActividad>', actividadesViews.actividadCreada, name='actividadcreada'),
+    urlpatterns  +=path('Actividades/listado', actividadesViews.actividadListado, name='actividades'),
+    urlpatterns  +=path('Actividades/detalle/<int:idActividad>', actividadesViews.actividadDetalle, name='actividadDetalle'),
+    urlpatterns  +=path('Actividades/realizar/<int:idActividad>', actividadesViews.actividadRealizar, name='actividadRealizar'),
+    urlpatterns  +=path('Actividades/eliminar/<int:idActividad>', actividadesViews.actividadEliminar, name='actividadEliminar'),
+
 
 if settings.DEBUG:
     urlpatterns  += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

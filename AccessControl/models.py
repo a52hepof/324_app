@@ -10,19 +10,19 @@ from django.dispatch import receiver
 
 
 class Profile(models.Model):
-    STUDENT = 1
-    TEACHER = 2
-    SUPERVISOR = 3
+    SCOUTER = 1
+    TUTOR = 2
+    RESPONSABLE = 3
     ROLE_CHOICES = (
-        (STUDENT, 'Student'),
-        (TEACHER, 'Teacher'),
-        (SUPERVISOR, 'Supervisor'),
+        (SCOUTER, 'Scouter'),
+        (TUTOR, 'Tutor'),
+        (RESPONSABLE, 'Responsable'),
     )
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     location = models.CharField(max_length=30, blank=True)
     birthdate = models.DateField(null=True, blank=True)
-    role = models.PositiveSmallIntegerField(choices=ROLE_CHOICES, null=True, blank=True)
-
+    role = models.PositiveSmallIntegerField(choices=ROLE_CHOICES, null=True, blank=True, default=1)
+    autorizado=models.BooleanField(default=0)
     def __str__(self):  # __unicode__ for Python 2
         return self.user.username
 

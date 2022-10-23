@@ -5,11 +5,11 @@ from django.shortcuts import render
 from django.shortcuts import render, redirect
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.models import User
-#from .models import User
 
 from django.http  import HttpResponse
 from django.contrib.auth import login, logout,authenticate
 from django.db import IntegrityError
+#from AccessControl.forms import SignUpForm
 # Create your views here.
 
 def signupPage(request):
@@ -21,18 +21,18 @@ def signupPage(request):
         return render(request, 'signup.html', 
             {
             'mytitle': title , 
-            'form':UserCreationForm
+            'form_class':UserCreationForm
             }
         )
     else:
         print(request.POST)
         if request.POST['password1'] == request.POST['password2']:
             # register user
-            print('obteniendo datos')
+            print('obteniendo datos', request.POST)
 
             try:
-                user = User.objects.create_user(username=request.POST['username'], password=request.POST['password1']) 
-                user.save()
+                user = User.objects.create_user(username=request.POST['username'], password=request.POST['password1'],is_active=request.POST['is_active']) 
+                user.save(),
                 login(request, user)
                 return redirect('home')
                 #return HttpResponse('user create successfully')   

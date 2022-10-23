@@ -21,15 +21,17 @@
                 <li class="nav-item">
 
                 </li>
-                <a class="nav-link" href="/Actividades/crear">Crear Actividades</a>
+                <a class="nav-link" href="/Actividades/crear">Crear Actividades</a> {% if user.is_staff %}
 
                 <li class="nav-item">
-                </li>
 
+                    <a class="nav-link" href="/admin/">Panel Administración</a>
+
+                </li>
+                {% endif %}
                 <li class="nav-item">
                     <a class="nav-link" style="color:#8685e7" href="/logout">Salir -- {{user}}</a>
                 </li>
-
 
 
                 {% else %}

@@ -53,6 +53,7 @@ INSTALLED_APPS = [
     'AccessControl',
     'Material',
     'Asociado',
+    'Actividades',
 
 ]
 
